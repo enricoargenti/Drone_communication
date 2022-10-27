@@ -12,14 +12,18 @@ namespace NetCoreClient.Sensors
             Random = new Random();
         }
 
-        public int Speed()
+        public Speed Speed()
         {
-            return new Speed(Random.Next(100)).Value;
+            string type = "Speed";
+            int speed = Random.Next(100);
+            DateTime time = DateTime.Now;
+
+            return new Speed(type, speed, time);
         }
 
         public string ToJson()
         {
-            return JsonSerializer.Serialize(new Speed(Random.Next(100)));
+            return JsonSerializer.Serialize(Speed());
         }
     }
 }

@@ -14,17 +14,17 @@ namespace NetCoreClient.Sensors
 
         public Position Position()
         {
+            string type = "Position";
             double longitude = (Random.Next(10, 20000));
             double latitude = (Random.Next(10, 20000));
-            return new Position(longitude, latitude);
+            DateTime time = DateTime.Now;
+            return new Position(type, longitude, latitude, time);
         }
        
 
         public string ToJson()
         {
-            double longitude = (Random.Next(10, 20000));
-            double latitude = (Random.Next(10, 20000));
-            return JsonSerializer.Serialize(new Position(longitude, latitude));
+            return JsonSerializer.Serialize(Position());
         }
     }
 }

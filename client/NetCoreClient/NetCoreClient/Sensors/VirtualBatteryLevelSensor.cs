@@ -12,14 +12,18 @@ namespace NetCoreClient.Sensors
             Random = new Random();
         }
 
-        public int BatteryLevel()
+        public BatteryLevel BatteryLevel()
         {
-            return new BatteryLevel(Random.Next(0, 100)).Value;
+            string type = "BatteryLevel";
+            int batteryLevel = (Random.Next(0, 100));
+            DateTime time = DateTime.Now;
+
+            return new BatteryLevel(type, batteryLevel, time);
         }
 
         public string ToJson()
         {
-            return JsonSerializer.Serialize(new BatteryLevel(Random.Next(0, 100)).Value);
+            return JsonSerializer.Serialize(BatteryLevel());
         }
     }
 }

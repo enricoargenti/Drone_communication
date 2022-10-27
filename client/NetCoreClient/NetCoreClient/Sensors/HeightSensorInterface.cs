@@ -1,8 +1,10 @@
-﻿namespace NetCoreClient.Sensors
+﻿using NetCoreClient.ValueObjects;
+
+namespace NetCoreClient.Sensors
 {
     internal interface IHeightSensorInterface
     {
-        double Height();
+        Height Height();
 
     }
 }

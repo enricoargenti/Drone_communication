@@ -12,15 +12,18 @@ namespace NetCoreClient.Sensors
             Random = new Random();
         }
 
-        public double Height()
+        public Height Height()
         {
+            string type = "Height";
             double height = Random.Next(10, 20000);
-            return new Height(height).Value;
+            DateTime time = DateTime.Now;
+
+            return new Height(type, height, time);
         }
 
         public string ToJson()
         {
-            return JsonSerializer.Serialize(new Speed(Random.Next(100)));
+            return JsonSerializer.Serialize(Height());
         }
     }
 }

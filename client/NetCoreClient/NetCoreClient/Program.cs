@@ -10,14 +10,18 @@ sensors.Add(new VirtualPositionSensor());
 sensors.Add(new VirtualSpeedSensor());
 
 // define protocol
-ProtocolInterface protocol = new Http("http://localhost:8011/drones/123");
+ProtocolInterface protocol = new Http("http://localhost:8011/drones/1");
 
 // send data to server
 while (true)
 {
+    //List<Object> sensorValues = new List<object>();
+
     foreach (ISensorInterface sensor in sensors)
     {
         var sensorValue = sensor.ToJson();
+
+        //sensorValues.Add(sensorValue);
 
         protocol.Send(sensorValue);
 
