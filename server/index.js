@@ -1,3 +1,4 @@
+/*
 var restify = require('restify');
 var provider = require('./provider');
 
@@ -82,3 +83,5 @@ server.post('/drones/:id', async function(req, res, next) {
 server.listen(8011, function() {
     console.log('%s listening at %s', server.name, server.url);
 });
+
+*/

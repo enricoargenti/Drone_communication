@@ -10,7 +10,8 @@ sensors.Add(new VirtualPositionSensor());
 sensors.Add(new VirtualSpeedSensor());
 
 // define protocol
-ProtocolInterface protocol = new Http("http://localhost:8011/drones/1");
+//IProtocolInterface protocol = new Http("http://localhost:8011/drones/1");
+IProtocolInterface protocol = new Mqtt(
 
 // send data to server
 while (true)
