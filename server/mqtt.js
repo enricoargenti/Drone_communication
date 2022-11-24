@@ -21,7 +21,7 @@ client.on('message', async function (topic, message) {
 
   var arr_from_json = JSON.parse(message.toString());
 
-  newStatus.droneID = topic.replace("iot2022test/", "");
+  newStatus.droneID = 1; // Capire come estrarlo dalle wildcards
   newStatus.type  = arr_from_json.Type;
   newStatus.time = arr_from_json.Time;
 

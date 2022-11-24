@@ -1,5 +1,7 @@
 ﻿using NetCoreClient.Sensors;
 using NetCoreClient.Protocols;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 // define sensors
 List<ISensorInterface> sensors = new();
@@ -25,8 +27,7 @@ while (true)
     {
         var sensorValue = sensor.ToJson();
 
-        string topicSuffix = "per_ora_niente";
-        Console.WriteLine("Possibile topicSuffix: " + sensor.GetType().Name);
+        string topicSuffix = sensor.GetType().Name; //Al suo posto creare un metodo GetName in interfaccia e classi sotto
 
         protocol.Send(sensorValue, droneId, topicSuffix);
 
