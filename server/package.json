@@ -2,13 +2,15 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "mqtt.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node mqtt.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mqtt": "^4.3.7",
     "pg": "^8.8.0",
     "restify": "^8.6.1"
   }

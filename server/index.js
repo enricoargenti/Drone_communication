@@ -1,4 +1,4 @@
-/*
+
 var restify = require('restify');
 var provider = require('./provider');
 
@@ -84,4 +84,3 @@ server.listen(8011, function() {
     console.log('%s listening at %s', server.name, server.url);
 });
 
-*/

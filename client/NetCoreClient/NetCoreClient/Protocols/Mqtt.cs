@@ -10,7 +10,7 @@ namespace NetCoreClient.Protocols
 {
     internal class Mqtt : IProtocolInterface
     {
-        private const string TOPIC_PREFIX = "iot2022test/";
+        private const string TOPIC_PREFIX = "iot2022test";
         private IMqttClient mqttClient;
         private string endpoint;
 
@@ -34,10 +34,14 @@ namespace NetCoreClient.Protocols
             return await mqttClient.ConnectAsync(options, CancellationToken.None);
         }
 
-        public async void Send(string data, string sensor)
+        public async void Send(string data, string drone_id, string topic_suffix)
         {
+
+            string topic = $"{TOPIC_PREFIX}/{drone_id}/{topic_suffix}";
+            Console.WriteLine("topic: " + topic);
+
             var message = new MqttApplicationMessageBuilder()
-                .WithTopic(TOPIC_PREFIX + sensor)
+                .WithTopic(topic)
                 .WithPayload(data)
                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce)
                 .Build();
