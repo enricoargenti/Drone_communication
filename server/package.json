@@ -5,7 +5,7 @@
   "main": "mqtt.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node mqtt.js"
+    "start": "node subscriberDataStorage.js"
   },
   "author": "",
   "license": "ISC",
