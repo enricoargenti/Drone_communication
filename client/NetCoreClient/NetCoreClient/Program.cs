@@ -7,7 +7,7 @@ List<ISensorInterface> sensors = new();
 
 // Drone ID initialization
 Console.WriteLine("Drone id: ");
-string? droneId = Console.ReadLine();
+string droneId = Console.ReadLine();
 
 // Every sensor measurement (new) is put in a list of sensors
 sensors.Add(new VirtualBatteryLevelSensor());
