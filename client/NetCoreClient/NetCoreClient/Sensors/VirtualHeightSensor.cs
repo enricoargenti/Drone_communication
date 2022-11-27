@@ -12,6 +12,7 @@ namespace NetCoreClient.Sensors
             Random = new Random();
         }
 
+        // Creates a randomly generated value to simulate the drone sensor
         public Height Height()
         {
             string type = "Height";
@@ -21,9 +22,16 @@ namespace NetCoreClient.Sensors
             return new Height(type, height, time);
         }
 
+        // Returns the sensor value in JSON format
         public string ToJson()
         {
             return JsonSerializer.Serialize(Height());
+        }
+
+        // Returns the sensor type in string format
+        public string GetType()
+        {
+            return "Height";
         }
     }
 }

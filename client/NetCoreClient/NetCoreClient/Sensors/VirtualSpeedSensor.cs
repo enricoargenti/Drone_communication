@@ -12,6 +12,7 @@ namespace NetCoreClient.Sensors
             Random = new Random();
         }
 
+        // Creates a randomly generated value to simulate the drone sensor
         public Speed Speed()
         {
             string type = "Speed";
@@ -21,9 +22,16 @@ namespace NetCoreClient.Sensors
             return new Speed(type, speed, time);
         }
 
+        // Returns the sensor value in JSON format
         public string ToJson()
         {
             return JsonSerializer.Serialize(Speed());
+        }
+        
+        // Returns the sensor type in string format
+        public string GetType()
+        {
+            return "Speed";
         }
     }
 }

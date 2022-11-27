@@ -1,39 +1,42 @@
 ﻿using NetCoreClient.Sensors;
 using NetCoreClient.Protocols;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.ComponentModel;
 
-// define sensors
+// Define sensors
 List<ISensorInterface> sensors = new();
 
-// drone id initialization
-string droneId = "1";
+// Drone ID initialization
+Console.WriteLine("Drone id: ");
+string? droneId = Console.ReadLine();
 
-// every sensor measurement (new) is put in a list of sensors
+// Every sensor measurement (new) is put in a list of sensors
 sensors.Add(new VirtualBatteryLevelSensor());
 sensors.Add(new VirtualHeightSensor());
 sensors.Add(new VirtualPositionSensor());
 sensors.Add(new VirtualSpeedSensor());
 
-// define protocol
-//IProtocolInterface protocol = new Http("http://localhost:8011/drones/1");
+// Protocol definition
 IProtocolInterface protocol = new Mqtt("127.0.0.1");
 
-// send data to server
+// Data senting to server
 while (true)
 {
-    // cycles on every sensor value
+    // Cycles on every sensor value
     foreach (ISensorInterface sensor in sensors)
     {
+        // Converts sensor value to a JSON string
         var sensorValue = sensor.ToJson();
 
-        string topicSuffix = sensor.GetType().Name; //Al suo posto creare un metodo GetName in interfaccia e classi sotto
+        // Gets the sensor type
+        string topicSuffix = sensor.GetType(); 
 
+        // Sends data by the specified protocol
         protocol.Send(sensorValue, droneId, topicSuffix);
+
 
         Console.WriteLine("Data sent: " + sensorValue + "\n");
 
-
+        // Takes a break every second in data sending
         Thread.Sleep(1000);
     }
 
