@@ -40,4 +40,8 @@ while (true)
         Thread.Sleep(1000);
     }
 
+
+    // E nel frattempo resto in ascolto di eventuali comandi verso i droni:
+    protocol.Receive(); //da fare in Mqtt.cs
+
 }

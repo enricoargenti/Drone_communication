@@ -2,8 +2,6 @@
     Client subscribed to receive every speed value
     of a specific drone
 */
-
-const { Console } = require('console');
 const mqtt = require('mqtt')
 const prompt = require('prompt-sync')();
 const client  = mqtt.connect('mqtt://127.0.0.1')

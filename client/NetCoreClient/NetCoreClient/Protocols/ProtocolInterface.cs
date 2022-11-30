@@ -8,5 +8,6 @@ namespace NetCoreClient.Protocols
     interface IProtocolInterface
     {
         void Send(string data, string drone_id, string topic_suffix);
+        void Receive();
     }
 }
