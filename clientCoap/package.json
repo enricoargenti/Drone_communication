@@ -2,14 +2,15 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "mqtt.js",
+  "main": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node commandsSender.js"
+    "start": "node client.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "coap": "^1.2.2",
     "mqtt": "^4.3.7",
     "pg": "^8.8.0",
     "prompt-sync": "^4.2.0",
