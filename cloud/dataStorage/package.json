@@ -1,18 +1,18 @@
 {
-  "name": "server",
+  "name": "datastorage",
   "version": "1.0.0",
   "description": "",
-  "main": "mqtt.js",
+  "main": "provider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node commandsSender.js"
+    "start": "node subscriberDataStorage.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "mqtt": "^4.3.7",
     "pg": "^8.8.0",
-    "prompt-sync": "^4.2.0",
-    "restify": "^8.6.1"
+    "prompt-sync": "^4.2.0"
   }
 }
