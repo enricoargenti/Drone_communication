@@ -2,7 +2,7 @@
   "name": "datastorage",
   "version": "1.0.0",
   "description": "",
-  "main": "provider.js",
+  "main": "subscriberDataStorage.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node subscriberDataStorage.js"
