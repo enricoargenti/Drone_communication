@@ -1,4 +1,4 @@
-# IoT Project (Argenti Enrico, Eupani Alessio)
+#IoT Project (Argenti Enrico, Eupani Alessio)
 
 
 ##**Stato dell'arte:**  
@@ -6,7 +6,7 @@
 
 
 
-     ###Generazione casuale ed invio misurazioni drone:
+###Generazione casuale ed invio misurazioni drone:
 
         Vengono generate quattro diverse misurazioni riferite ad un drone n:
             * Speed
@@ -25,14 +25,14 @@
 
 
  
-     ###Broker MQTT:
+###Broker MQTT:
 
         A garanzia della comunicazione tramite protocollo MQTT si sfrutta un broker Mosquitto 
         (che viene fatto girare in locale attraverso Docker). 
 
 
     
-    ###Ricezione ed elaborazione/storage dati drone:
+###Ricezione ed elaborazione/storage dati drone:
     
         Dal lato della ricezione dei dati dei sensori abbiamo tre diverse modalità di gestione:
 
@@ -50,7 +50,7 @@
 
 
     
-    ###Invio di comandi al drone da remoto: 
+###Invio di comandi al drone da remoto: 
 
         commandsSender : per la generazione e l'invio di comandi verso il drone si è sviluppato 
         invece un commandsSender (commandsSender.js) che pubblica i comandi inseriti da shell 
@@ -60,7 +60,7 @@
         si possa gestire la risposta asincrona di avvenuta esecuzione dello stesso). 
 
     
-    ###Ricezione dei comandi da parte del drone:
+###Ricezione dei comandi da parte del drone:
 
         Dal lato client del drone l'iscrizione viene fatta al topic iot2022test/commands/#
         (per ora come test si ricevono tutti i comandi inviati a qualsiasi drone). 
@@ -74,7 +74,7 @@
 
 
     
-    ###TODOS: 
+###TODOS: 
 
         Da fare: 
             - l'interfaccia grafica di visualizzazione dello stato del drone
