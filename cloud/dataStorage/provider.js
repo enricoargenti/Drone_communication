@@ -22,7 +22,7 @@ module.exports.getDrone = async function(id) {
     return result.rows[0];
 }
 
-// Metodo che restituisce il numero di droni memorizzati nel database
+// returns the number of drones stored into the database
 module.exports.getNumberOfDrones = async function() {
     var client = getDbClient();
     var result = await client.query("SELECT COUNT(*) AS number_of_drones FROM drones;");
@@ -30,8 +30,8 @@ module.exports.getNumberOfDrones = async function() {
     return result.rows[0];
 }
 
-// Metodo che riceve come parametro l'id di un drone
-// e restituisce tutti gli status salvati nel database riferiti ad un determinato drone
+// returns every status stored into the db that is referred to a certain drone
+// (accepting a drone id as parameter)
 module.exports.getDroneStatuses = async function(id) {
     var client = getDbClient();
     var result = await client.query(
@@ -40,14 +40,14 @@ module.exports.getDroneStatuses = async function(id) {
     return result.rows;
 }
 
-
-// Metodo che inserisce nel database un nuovo status comprensivo di:
-    // - tipo di misurazione (es. velocità)
-    // - data e ora in cui il valore è stato misurato
-    // - il dato/i dati misurati in formato JSON
-    // - l'identificativo del drone da cui provengono i dati
-// Il metodo accetta in input un oggetto newStatus che raccoglie il pacchetto dati arrivato dal drone
-// e restituisce l'ultima riga aggiunta al database
+/* 
+inserts into the database a new status that contains:
+    - measurement type (i.e. "Speed")
+    - date and hour of value measurement
+    - measured data in JSON format
+    - drone identifier from which data are taken
+This method accepts as input (parameter) this new status and returns the last row added to the db. 
+*/
 module.exports.addStatus = async function(newStatus) {
     var client = getDbClient();
     var insert = await client.query(

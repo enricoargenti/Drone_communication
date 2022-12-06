@@ -1,0 +1,17 @@
+{
+  "name": "positioncontroller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node positionController.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.3.7",
+    "prompt-sync": "^4.2.0"
+  }
+}

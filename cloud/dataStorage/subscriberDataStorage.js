@@ -14,44 +14,46 @@ client.on('connect', function () {
 })
 
 client.on('message', async function (topic, message) {
-  console.log('TOPIC: ' + topic + "\nMESSAGE: " + message.toString());
+    console.log('TOPIC: ' + topic + "\nMESSAGE: " + message.toString());
 
-  // Inserisco sul db richiamando il provider
-  var newStatus = {};
+    // insertion into the db calling a provider
+    var newStatus = {};
 
-  var arr_from_json = JSON.parse(message.toString());
-  var topic_array = topic.split("/");
-  newStatus.droneID = topic_array[1]; // Capire come estrarlo dalle wildcards
-  newStatus.type  = arr_from_json.Type;
-  newStatus.time = arr_from_json.Time;
+    var arr_from_json = JSON.parse(message.toString());
+    var topic_array = topic.split("/");
 
-  //GLI PASSO DATI IMPACCHETTATI IN JSON E LI SALVO IN JSON NEL DATABASE
-  var newJSON = {};
-  if(newStatus.type == "Position")
-  {
-      newJSON.Latitude = arr_from_json.Latitude;
-      newJSON.Longitude = arr_from_json.Longitude;
-  }
-  else
-  {
-      newJSON.Value = arr_from_json.Value;
-  }
-  newStatus.dataJSON = JSON.stringify(newJSON);
+    newStatus.droneID = topic_array[1]; //gets the id at the second position on topic
+    newStatus.type  = arr_from_json.Type;
+    newStatus.time = arr_from_json.Time;
+
+    //saves JSON packets that contain useful information about the drone status
+    var newJSON = {};
+    if(newStatus.type == "Position")
+    {
+        newJSON.Latitude = arr_from_json.Latitude;
+        newJSON.Longitude = arr_from_json.Longitude;
+    }
+    else
+    {
+        newJSON.Value = arr_from_json.Value;
+    }
+
+    newStatus.dataJSON = JSON.stringify(newJSON);
 
 
+    // prints to check values
+    console.log("DroneID: " + newStatus.droneID);
+    console.log("Type: " + newStatus.type);
+    console.log("Time: " + newStatus.time);
+    console.log("dataJSON: " + newStatus.dataJSON);
 
-  console.log("DroneID: " + newStatus.droneID);
-  console.log("Type: " + newStatus.type);
-  console.log("Time: " + newStatus.time);
-  console.log("dataJSON: " + newStatus.dataJSON);
-
-  
-  var last = await provider.addStatus(newStatus);
-  if(last == undefined) {
-      console.log("ERRORE di trasmissione al database: internalServerError (da cercare sulla documentazione");
-      //throw internalServerError();
-  }
-  //res.code(201);
+    // it adds the new status
+    var last = await provider.addStatus(newStatus);
+    if(last == undefined) {
+        console.log("ERRORE di trasmissione al database: internalServerError");
+        //throw internalServerError();
+    }
+    //res.code(201);
   
 })
 
