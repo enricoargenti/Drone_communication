@@ -41,7 +41,7 @@ while (true)
     }
 
 
-    // E nel frattempo resto in ascolto di eventuali comandi verso i droni:
-    protocol.Receive(); //da fare in Mqtt.cs
+    // Meanwhile it keeps listening to possible commands from the cloud
+    protocol.Receive(); //to do in Mqtt.cs
 
 }

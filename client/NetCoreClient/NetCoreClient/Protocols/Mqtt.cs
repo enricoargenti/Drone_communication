@@ -44,13 +44,14 @@ namespace NetCoreClient.Protocols
                 .WithTopic(topic)
                 .WithPayload(data)
                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce) //QoS = 2
+                .WithRetainFlag(true)   // retain flag is now enabled
                 .Build();
 
             await mqttClient.PublishAsync(message, CancellationToken.None);
         }
 
         // receives commands from cloud
-        public async void Receive()//usare una callback qui dentro (ad una funzione esterna)
+        public async void Receive()//use a callback here (an external function?)
         {
             string topic = $"{TOPIC_PREFIX}/commands/#";
             Console.WriteLine("subscribed to topic: " + topic);

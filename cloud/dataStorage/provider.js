@@ -14,7 +14,7 @@ function getDbClient() {
     
 }
 
-// Metodo che - dato l'id - restituisce la descrizione di un singolo drone
+// returns a single drone description (accepting a drone id as parameter)
 module.exports.getDrone = async function(id) {
     var client = getDbClient();
     var result = await client.query("SELECT * FROM drones WHERE drone_id = $1 ;" [id]);

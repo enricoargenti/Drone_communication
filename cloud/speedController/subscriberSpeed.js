@@ -1,5 +1,5 @@
 /*
-    Client subscribed to receive every speed value
+    Client subscribed to receive the last speed value
     of a specific drone
 */
 const mqtt = require('mqtt')
@@ -9,7 +9,7 @@ const client  = mqtt.connect('mqtt://127.0.0.1')
 // asks which is the specific drone to check
 const droneId = prompt('Drone Id to check:');
 
-var topic = 'iot2022test/+/Speed';
+var topic = `iot2022test/'${droneId}'/Speed`;
 
 client.on('connect', function () {
     console.log("Connesso");
@@ -26,7 +26,7 @@ client.on('message', async function (topic, message) {
 
   var arr_from_json = JSON.parse(message.toString());
 
-  // newSpeed.droneID = topic.substring(); // Capire come estrarlo dalle wildcards
+  // newSpeed.droneID = topic.substring();
   newSpeed.type  = arr_from_json.Type;
   newSpeed.time = arr_from_json.Time;
   newSpeed.value = arr_from_json.Value;

@@ -19,7 +19,7 @@ while(true)
 {
   console.log("topic: " + topic);
   var inputCommand = prompt('Command to send: ');
-  client.publish(topic, "ciao");
+  client.publish(topic, inputCommand);
   //client.end()
   console.log("inviato\n")
 }

@@ -20,8 +20,8 @@ client.on('message', async function (topic, message) {
   var newStatus = {};
 
   var arr_from_json = JSON.parse(message.toString());
-
-  newStatus.droneID = 1; // Capire come estrarlo dalle wildcards
+  var topic_array = topic.split("/");
+  newStatus.droneID = topic_array[1]; // Capire come estrarlo dalle wildcards
   newStatus.type  = arr_from_json.Type;
   newStatus.time = arr_from_json.Time;
 
