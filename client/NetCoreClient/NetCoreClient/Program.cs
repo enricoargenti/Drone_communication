@@ -47,10 +47,8 @@ while (true)
         // Sends the packet to Redis
         await db.ListRightPushAsync(key, sensorValue);
 
-        Console.WriteLine("Data sent: " + sensorValue + "\n");
+        Console.WriteLine("Data sent: " + sensorValue);
 
-        string? result = await db.ListLeftPopAsync(key);
-        Console.WriteLine("Direttamente da Redis: " + result);
 
         // Takes a break every second in data sending
         Thread.Sleep(1000);
