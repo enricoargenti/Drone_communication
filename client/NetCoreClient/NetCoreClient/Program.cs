@@ -1,6 +1,11 @@
 ﻿using NetCoreClient.Sensors;
 using NetCoreClient.Protocols;
 using System.ComponentModel;
+using StackExchange.Redis;
+
+/*
+ DATA COLLECTION
+ */
 
 // Define sensors
 List<ISensorInterface> sensors = new();
@@ -16,8 +21,19 @@ sensors.Add(new VirtualHeightSensor());
 sensors.Add(new VirtualPositionSensor());
 sensors.Add(new VirtualSpeedSensor());
 
-// Protocol definition
-IProtocolInterface protocol = new Mqtt("127.0.0.1");
+
+// Connection to Redis
+ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+IDatabase db = redis.GetDatabase();
+
+
+const string key = "packet"; //forse da sostituire con droneId perché nel pacchetto non c'è
+
+
+//string? result = await db.StringGetAsync("mykey");
+//string? result = await db.ListLeftPopAsync("drone1");
+//Console.WriteLine("Direttamente da Redis: " + result); // writes: "abcdefg"
+
 
 // Data senting to server
 while (true)
@@ -28,21 +44,17 @@ while (true)
         // Converts sensor value to a JSON string
         var sensorValue = sensor.ToJson();
 
-        // Gets the sensor type
-        string topicSuffix = sensor.GetType(); 
-
-        // Sends data by the specified protocol
-        protocol.Send(sensorValue, droneId, topicSuffix);
-
+        // Sends the packet to Redis
+        await db.ListRightPushAsync(key, sensorValue);
 
         Console.WriteLine("Data sent: " + sensorValue + "\n");
+
+        string? result = await db.ListLeftPopAsync(key);
+        Console.WriteLine("Direttamente da Redis: " + result);
 
         // Takes a break every second in data sending
         Thread.Sleep(1000);
     }
 
-
-    // Meanwhile it keeps listening to possible commands from the cloud
-    protocol.Receive(); //to do in Mqtt.cs
 
 }

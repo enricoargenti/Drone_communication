@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NetCoreClient.Protocols
+namespace NetCoreClient.Protocols;
+
+interface IProtocolInterface
 {
-    interface IProtocolInterface
-    {
-        void Send(string data, string drone_id, string topic_suffix);
-        void Receive();
-    }
+    void Send(string data, string drone_id, string topic_suffix);
+    void Receive();
 }
