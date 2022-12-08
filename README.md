@@ -4,16 +4,21 @@
 ## **Stato dell'arte:**  
 
 
-### AMQP WORKING...
-* Comunicazione dati su Redis ed estrazione dallo stesso: COMPLETATA
-* Comunicazione dati da producer a RabbitMQ : implementata connessione con CloudAmqp e inserimento
-  su una queue tramite:
-	exchange di tipo *topic*
-	binding con binding key *drones.measurements*
+### Comunicazione dati su Redis ed estrazione dallo stesso
+Completato sfruttando una lista Redis che funge da accumulatore di dati. 
 
-* Comunicazione dati da RabbitMQ ai consumers: implementata la connessione che porta i pacchetti
-  dal broker CloudAmqp all'elaborazione in *dataStorage*, dove vengono scomposti ed inseriti 
-  nel database Postgres tramite il provider *provider.js*
+### Comunicazione dati da producer a RabbitMQ : 
+* implementata connessione con CloudAmqp e creato un nuovo exchange *myExchange* di tipo *topic*
+* create due queues con rispettivi bindings: i topic corrispondenti sono:
+* *drones.measurements* per la raccolta di tutti i dati rilevati dal drone
+* *drones.measurements.positions* per la raccolta di tutti i dati riguardanti la posizione
+
+### Comunicazione dati da RabbitMQ ai consumers: 
+Sono state implementate due diverse soluzioni per la gestione dei dati presenti sul broker AMQP:
+* *dataStorage*, dove sfruttando un consumer iscritto al topic *drones.measurements*
+i pacchetti vengono scomposti ed inseriti nel database Postgres tramite il provider *provider.js*
+* *positionControl*, dove prelevando dal topic *drones.measurements.positions* 
+i pacchetti riguardanti la posizione potranno essere elaborati a piacimento. 
 
 ### Generazione casuale ed invio misurazioni drone:
 
