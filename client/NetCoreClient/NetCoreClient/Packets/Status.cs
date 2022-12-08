@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreClient.Packets;
 
-internal class Status
+public class Status
 {
     public string Drone_ID { get; set; }
     public Object Data { get; set; }

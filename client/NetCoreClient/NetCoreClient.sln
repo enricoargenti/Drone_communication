@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreClient", "NetCoreClient\NetCoreClient.csproj", "{39299822-53A9-4303-9CB9-77DC0C1078BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSender", "DataSender\DataSender.csproj", "{517A6238-B756-4157-A142-644FB5E43529}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSender", "DataSender\DataSender.csproj", "{517A6238-B756-4157-A142-644FB5E43529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

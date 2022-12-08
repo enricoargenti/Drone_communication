@@ -1,7 +1,13 @@
 ﻿using RabbitMQ.Client;
 using System.Text;
-using DataSender;
 using StackExchange.Redis;
+using static System.Net.Mime.MediaTypeNames;
+using System.Text.Json.Nodes;
+using System.Text.Json;
+using NetCoreClient.Packets; //This projects depends on NetCoreClient
+using Microsoft.VisualBasic;
+using Newtonsoft.Json;
+using DataSender;
 
 class Program
 {
@@ -14,22 +20,6 @@ class Program
         var url = _url;
         if (args.Length > 0)
             url = args[0];
-        /*
-        Console.CancelKeyPress += (sender, eArgs) => {
-            // set the quit event so that the Consumer will receive it and quit gracefully
-            _quitEvent.Set();
-            Console.WriteLine("CancelEvent received, shutting down...");
-            // sleep 1 second to give Consumer time to clean up
-            Thread.Sleep(1000);
-        };
-        
-
-        // setup worker thread
-        var consumer = new Consumer(url, _quitEvent);
-        var consumerThread = new Thread(consumer.ConsumeQueue) { IsBackground = true };
-        consumerThread.Start();
-
-        */
 
         // Creates a connection and open a channel, dispose them when done
         var factory = new ConnectionFactory
@@ -39,14 +29,32 @@ class Program
 
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
-        // Ensure that the queue exists before we publish to it
-        var queueName = "drones.measurements";
+
+        // Creates two different queues:
+        // the first one to store all data,
+        // the second one to store only drones positions
+        var queue1 = "drones.measurements";
+        var queue2 = "drones.measurements.positions";
+
+        // queues parameters
         bool durable = true;
         bool exclusive = false;
         bool autoDelete = false;
 
-        // Declares the queue with all its parameters
-        channel.QueueDeclare(queueName, durable, exclusive, autoDelete, null);
+        // Declares queues with all their parameters
+        channel.QueueDeclare(queue1, durable, exclusive, autoDelete, null);
+        channel.QueueDeclare(queue2, durable, exclusive, autoDelete, null);
+
+        // Declares a new Exchange named "myExchange" with type topic
+        channel.ExchangeDeclare("myExchange", "topic");
+
+        // Declares a new binding for queue1 ("drones.measurements")
+        var routingKey1 = queue1;
+        channel.QueueBind(queue1, "myExchange", routingKey1);
+
+        // Declares a new binding for queue2 ("drones.measurements.positions")
+        var routingKey2 = queue2;
+        channel.QueueBind(queue2, "myExchange", routingKey2);
 
         //--------------------------------------------------------------------------------------------------
         // Connection to Redis
@@ -64,18 +72,24 @@ class Program
 
             if (packet != null)
             {
-                Console.WriteLine("Direttamente da Redis: " + packet);
+                //Console.WriteLine("Extracted from Redis: " + packet);
 
                 // Data put on the queue must be a byte array
                 var data = Encoding.UTF8.GetBytes(packet);
-                // publish to the topic exchange
-                channel.ExchangeDeclare("myExchange", "topic"); //exchange set with type Topic
-                var routingKey = queueName;
 
-                channel.QueueBind(queueName, "myExchange", routingKey);
 
-                channel.BasicPublish("myExchange", routingKey, null, data);
-                Console.WriteLine("Published message {0}\n", packet);
+                // Inserts all data on queue1 ("drones.measurements")
+                channel.BasicPublish("myExchange", routingKey1, null, data);
+                Console.WriteLine("Published message {0} on {1}\n", queue1, packet);
+
+                // Inserts all data on queue2 ("drones.measurements.positions")
+                // if data type is Position
+                PacketChecker pc = new PacketChecker();
+                if (pc.Check(packet, "Position"))
+                {
+                    channel.BasicPublish("myExchange", routingKey2, null, data);
+                    Console.WriteLine("Published message {0} on {1}\n", queue2, packet);
+                }
             }
 
             
