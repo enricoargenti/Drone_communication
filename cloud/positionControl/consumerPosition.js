@@ -1,8 +1,7 @@
-const provider = require('./provider');
 const amqplib = require('amqplib');
 
 const url = "amqps://erzcddln:Noq08Uww2NHycbvZHuarnYOZbYdigSQG@whale.rmq.cloudamqp.com/erzcddln";
-const main_queue = "drones.measurements";
+const main_queue = "drones.measurements.positions";
 
 
 (async () => {
@@ -50,14 +49,6 @@ const main_queue = "drones.measurements";
       console.log("Time: " + newStatus.time);
       console.log("dataJSON: " + newStatus.dataJSON);
       console.log();
-
-      // it adds the new status
-      var last = await provider.addStatus(newStatus);
-      if(last == undefined) {
-          console.log("ERRORE di trasmissione al database: internalServerError");
-          //throw internalServerError();
-      }
-      //res.code(201);
 
 
       ch1.ack(msg);
