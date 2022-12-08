@@ -5,10 +5,15 @@
 
 
 ### AMQP WORKING...
-Comunicazione dati su Redis ed estrazione dallo stesso: COMPLETATA
-Comunicazione dati da producer a RabbitMQ : implementata connessione con CloudAmqp, ma c'è 
-una mancanza sul binding che non permette di mandare i dati con successo
-Comunicazione dati da RabbitMQ ai consumers: da fare. 
+* Comunicazione dati su Redis ed estrazione dallo stesso: COMPLETATA
+* Comunicazione dati da producer a RabbitMQ : implementata connessione con CloudAmqp e inserimento
+  su una queue tramite:
+	exchange di tipo *topic*
+	binding con binding key *drones.measurements*
+
+* Comunicazione dati da RabbitMQ ai consumers: implementata la connessione che porta i pacchetti
+  dal broker CloudAmqp all'elaborazione in *dataStorage*, dove vengono scomposti ed inseriti 
+  nel database Postgres tramite il provider *provider.js*
 
 ### Generazione casuale ed invio misurazioni drone:
 
