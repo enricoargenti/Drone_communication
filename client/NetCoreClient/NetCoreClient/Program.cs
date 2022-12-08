@@ -30,11 +30,6 @@ IDatabase db = redis.GetDatabase();
 const string key = "packet"; //forse da sostituire con droneId perché nel pacchetto non c'è
 
 
-//string? result = await db.StringGetAsync("mykey");
-//string? result = await db.ListLeftPopAsync("drone1");
-//Console.WriteLine("Direttamente da Redis: " + result); // writes: "abcdefg"
-
-
 // Data senting to server
 while (true)
 {
