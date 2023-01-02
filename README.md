@@ -45,7 +45,3 @@ sfruttando le chiamate del *provider* `provider.js`;
 
 * positionControl: un client *consumer* dedicato `consumerPosition.js` che prelevando i dati 
 dalla coda `drones.measurements.positions` raccoglie tutte le posizioni dei droni;
-
-* speedController: un client dedicato `subscriberSpeed.js` per la gestione dei dati della velocità 
-di tutti i droni (nelle intenzioni ogni tipo di misurazione proveniente dal drone 
-verrà gestita con un subscriber apposito). 
