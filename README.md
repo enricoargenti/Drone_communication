@@ -6,16 +6,16 @@
 Completato sfruttando una lista Redis che funge da accumulatore di dati. 
 
 ### Comunicazione dati da producer a RabbitMQ : 
-* implementata connessione con CloudAmqp e creato un nuovo exchange *myExchange* di tipo *topic*
+* implementata connessione con CloudAmqp e creato un nuovo *exchange* `myExchange` di tipo *topic*
 * create due queues con rispettivi bindings: i topic corrispondenti sono:
-* *drones.measurements* per la raccolta di tutti i dati rilevati dal drone
-* *drones.measurements.positions* per la raccolta di tutti i dati riguardanti la posizione
+* `drones.measurements` per la raccolta di tutti i dati rilevati dal drone
+* `drones.measurements.positions` per la raccolta di tutti i dati riguardanti la posizione
 
 ### Comunicazione dati da RabbitMQ ai consumers: 
-Sono state implementate due diverse soluzioni per la gestione dei dati presenti sul broker AMQP:
-* *dataStorage*, dove sfruttando un consumer iscritto al topic *drones.measurements*
+Sono state implementate due diverse soluzioni per la gestione dei dati presenti sul *broker AMQP*:
+* `dataStorage`, dove sfruttando un consumer iscritto al *topic* `drones.measurements`
 i pacchetti vengono scomposti ed inseriti nel database Postgres tramite il provider *provider.js*
-* *positionControl*, dove prelevando dal topic *drones.measurements.positions* 
+* `positionControl`, dove prelevando dal *topic* `drones.measurements.positions`
 i pacchetti riguardanti la posizione potranno essere elaborati a piacimento. 
 
 ### Generazione casuale ed invio misurazioni drone:
@@ -34,4 +34,3 @@ Il *payload* corrisponde ad un pacchetto JSON contenente:
 * Type (tipo di dato rilevato)
 * Value (valore rilevato)
 * Time (data e ora di rilevazione del dato)
-
