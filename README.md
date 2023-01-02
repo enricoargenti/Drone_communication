@@ -1,4 +1,4 @@
-# Primo progetto corso IoT (gruppo Argenti Enrico ed Eupani Alessio)
+# Primo progetto corso IoT (Argenti Enrico, Eupani Alessio)
 
 ## Introduzione al progetto
 
