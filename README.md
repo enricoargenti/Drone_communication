@@ -1,8 +1,6 @@
 # IoT Project (Argenti Enrico, Eupani Alessio)
 
-
-## **Stato dell'arte:**  
-
+## AMQP
 
 ### Comunicazione dati su Redis ed estrazione dallo stesso
 Completato sfruttando una lista Redis che funge da accumulatore di dati. 
