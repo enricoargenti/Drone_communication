@@ -1,10 +1,6 @@
 # IoT Project (Argenti Enrico, Eupani Alessio)
 
-
-## **Stato dell'arte:**  
-
-
-
+## MQTT
 
 ### Generazione casuale ed invio misurazioni drone:
 
